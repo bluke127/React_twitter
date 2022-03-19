@@ -1,13 +1,18 @@
-import './App.scss';
-import Login from './views/Login';
-import './Login.scss';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React from 'react';
+import DefaultLayout from '@/layouts/DefaultLayout';
+import Login from '@/routes/Login';
+import styles from '@/styles/views/App.module.scss';
 function App() {
-  const test = 's';
   return (
-    <div className="App">
-      <Login />
-    </div>
+    <Router>
+      <DefaultLayout>
+        <Routes>
+          <Route path="/hello" element={<h1>Hello </h1>}></Route>
+          <Route path="/" element={<Login />}></Route>
+        </Routes>
+      </DefaultLayout>
+    </Router>
   );
 }
 // const Login = ({ updateMainCat }) => {
