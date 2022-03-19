@@ -1,0 +1,48 @@
+@import './init.scss';
+@import './variables.scss';
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+* {
+  box-sizing: inherit;
+}
+
+html,
+body {
+  height: 100%;
+  font-size: 62.5%;
+  background-color: $represent;
+  font-family: NanumSquareEB, NanumSquareB;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  border: none;
+  outline: none;
+}
+p {
+  margin: 0;
+}
+input {
+  outline: none;
+}
+
+.v-toast__text {
+  font-size: 1.6rem;
+}
+
+@font-face {
+  font-family: NanumSquareEB;
+  src: url('~@/assets/styles/fonts/NanumSquareExtraBold.ttf') format('woff');
+}
+
+@font-face {
+  font-family: NanumSquareB;
+  src: url('~@/assets/styles/fonts/NanumSquareBold.ttf') format('woff');
+}
