@@ -1,13 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '@/styles/views/Login.scss';
 import BaseInput from '@/components/BaseInput';
 const Login = () => {
-  const [value, setValue] = React.useState('');
-  function handleInputChange(e) {
+  const [id, setId] = useState('');
+
+  const [password, setPassword] = useState('');
+  function handleInputChange(e, func) {
+    alert();
+    console.log(e);
     e.preventDefault();
-    setValue(e.target.value);
+    func(e.target.value);
+    console.log(id, password);
   }
-  return <BaseInput />;
+  function test() {
+    alert();
+  }
+  return (
+    <div>
+      <BaseInput type="text" />
+      <BaseInput type="password" />
+    </div>
+  );
 };
 
 export default Login;
