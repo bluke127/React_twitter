@@ -1,4 +1,11 @@
-import { authService } from 'fbase';
+import { authService, firebaseInstance } from 'fbase';
+import {
+  createUserWithEmailAndPassword,
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from '@firebase/auth';
 import React, { useState } from 'react';
 const Auth = () => {
   const [email, setEmail] = useState('');
@@ -19,38 +26,37 @@ const Auth = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
     try {
-      console.log(email, password, newAccount);
+      let data;
       if (newAccount) {
         const data = await authService.createUserWithEmailAndPassword(
           email,
           password,
         );
-
-        console.log(data); //create account
       } else {
-        const data = await authService.signInWithEmailAndPassword(
-          email,
-          password,
-        );
-        console.log(data); //log in
+        data = await authService.signInWithEmailAndPassword(email, password);
       }
-    } catch (e) {
-      setError(e.message);
+      console.log(data);
+    } catch (error) {
+      setError(error.message);
     }
-    console.log(event.target.name);
   };
   const toggleAcount = () => setNewAccount((prev) => !prev);
-  const onSocialClick = (event) => {
+  const onSocialClick = async (event) => {
     const {
       target: { name },
     } = event;
-    let provider
+    let provider;
     if (name === 'google') {
-      provider = new 
+      provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(authService, provider);
+      const credential = GoogleAuthProvider.credentialFromResult(result);
     } else if (name === 'github') {
-
+      provider = new GithubAuthProvider();
+      const result = await signInWithPopup(authService, provider);
+      const credential = GithubAuthProvider.credentialFromResult(result);
     }
-    console.log(event.target.name);
+    const data = await authService.signInWithPopup(provider);
+    console.log(data);
   };
   return (
     <div>
